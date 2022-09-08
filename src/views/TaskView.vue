@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col min-h-full">
-    <HeaderMenu/>
+    <HeaderMenu />
     <v-container fluid class="min-h-full padding-0">
       <v-row no-gutters class="min-h-full">
         <v-col cols="2" class="bg-slate-200">
@@ -13,9 +13,7 @@
               <v-col sm="12" cols="12">
 
                 {{user}}
-                <p
-                  class="transition-swing text-h6"
-                >
+                <p class="transition-swing text-h6">
                   {{ $route.params.id ? `Editar tarefa ${$route.params.id}` : 'Nova tarefa' }}
                 </p>
                 <v-card>
@@ -24,30 +22,18 @@
                       <v-col cols="12" sm="12">
                         <v-row no-gutters>
                           <v-col cols="12" sm="8">
-                            <v-text-field
-                              label="Nome da tarefa"
-                              required
-                              outlined
-                              v-model="form.name"
-                            ></v-text-field>
+                            <v-text-field label="Nome da tarefa" required outlined v-model="form.name">
+                            </v-text-field>
                           </v-col>
                           <v-col cols="12" sm="4">
                             <div class="sm:pl-6">
-                              <v-select
-                                :items="priorityItems"
-                                label="Prioridade da tarefa"
-                                outlined
-                                v-model="form.priority"
-                              ></v-select>
+                              <v-select :items="priorityItems" label="Prioridade da tarefa" outlined
+                                v-model="form.priority"></v-select>
                             </div>
                           </v-col>
                           <v-col cols="12" sm="12">
-                            <v-select
-                              :items="statusItems"
-                              label="Status da tarefa"
-                              outlined
-                              v-model="form.status"
-                            ></v-select>
+                            <v-select :items="statusItems" label="Status da tarefa" outlined v-model="form.status">
+                            </v-select>
                           </v-col>
                           <v-col cols="12" class="mb-6">
                             <v-row>
@@ -62,14 +48,8 @@
                             </v-row>
                           </v-col>
                           <v-col cols="12" sm="12">
-                            <v-textarea
-                              filled
-                              name="input-7-4"
-                              label="Descrição da tarefa"
-                              value=""
-                              v-model="form.description"
-                              rows="10"
-                            ></v-textarea>
+                            <v-textarea filled name="input-7-4" label="Descrição da tarefa" value=""
+                              v-model="form.description" rows="10"></v-textarea>
                           </v-col>
                         </v-row>
                       </v-col>
@@ -122,7 +102,7 @@ export default {
   async created() {
     if (this.$route.params.id) {
       API.get(`/tasksList/${this.$route.params.id}`).then((response) => {
-        const tast:task = response.data;
+        const tast: task = response.data;
         this.form = tast;
       }).catch((e) => {
         this.$router.push('/tasks');
@@ -133,9 +113,9 @@ export default {
   methods: {
     async submit() {
       const { ...data } = this.form;
-      const newTask:task = data;
-      API.post(`/taskItem/edit/${this.$route.params.id || 'new'}`, newTask).then((response) => {
-        console.log(response);
+      const newTask: task = data;
+      API.post(`/taskItem/edit/${this.$route.params.id || 'new'}`, newTask).then(() => {
+        this.$router.push('/tasks');
       }).catch((e) => {
         console.log(e.message);
       });
