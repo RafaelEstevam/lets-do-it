@@ -1,10 +1,7 @@
 <template>
   <div>
     {{ status }}
-    <v-card
-      v-for="task in tasksList"
-      :key="task.id"
-    >
+    <v-card v-for="task in tasksList" :key="task.id" @click="goToTask(task.id)">
       {{ task.name }}
     </v-card>
   </div>
@@ -24,6 +21,11 @@ export default {
   },
   async created() {
     this.tasksList = this.tasks;
+  },
+  methods: {
+    goToTask(id) {
+      this.$router.push(`/task/edit/${id}`);
+    },
   },
 };
 </script>
