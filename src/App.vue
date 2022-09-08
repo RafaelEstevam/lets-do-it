@@ -1,7 +1,7 @@
 <template>
   <v-app light>
-    <div class="bg-slate-300 min-h-screen">
-      <router-view/>
+    <div class="bg-slate-300 min-h-screen flex flex-col">
+      <router-view />
     </div>
   </v-app>
 </template>
@@ -18,20 +18,18 @@ export default Vue.extend({
 </script>
 
 <style>
+* {
+  margin: 0px;
+  padding: 0px;
+}
 
-  *{
-    margin: 0px;
-    padding: 0px;
-  }
+.h100vh {
+  height: 100vh;
+}
 
-  .h100vh{
-    height: 100vh;
-  }
-
-  .padding-0{
-    padding: 0px !important;
-  }
-
+.padding-0 {
+  padding: 0px !important;
+}
 </style>
 
 <!-- <template>

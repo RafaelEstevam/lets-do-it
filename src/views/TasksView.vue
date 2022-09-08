@@ -1,13 +1,9 @@
 <template>
   <div class="flex flex-col">
     <HeaderMenu />
-    <v-container fluid class="min-h-full padding-0">
-      <v-row no-gutters class="min-h-full">
-        <v-col cols="2" class="bg-slate-200">
-          <div class="p-6">
-            <p>Filtros</p>
-          </div>
-        </v-col>
+    <v-container fluid class="h-full padding-0">
+      <v-row no-gutters class="h-full">
+        <Menu />
         <v-col cols="10" class="p-6">
           <div class="p-6">
             <v-row>
@@ -26,6 +22,7 @@
 import { API } from '@/services/api';
 import HeaderMenu from '@/components/HeaderMenu.vue';
 import TaskWrapper from '@/components/TaskWrapper.vue';
+import Menu from '@/components/Menu.vue';
 import status from '@/enum/status.enun';
 import { task } from '@/interfaces/task.interface';
 
@@ -35,7 +32,7 @@ export default {
       taskWrappers: [],
     };
   },
-  components: { HeaderMenu, TaskWrapper },
+  components: { HeaderMenu, TaskWrapper, Menu },
   async created() {
     API.get('/tasksList').then((response) => {
       const ToDoList = response.data.filter((item: task) => item.status === status[0]);

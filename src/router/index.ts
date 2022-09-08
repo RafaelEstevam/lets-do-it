@@ -24,7 +24,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/task/edit/:id',
-    name: 'task',
+    name: 'task_edit',
     component: TaskView,
   },
   // {

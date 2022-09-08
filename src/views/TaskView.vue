@@ -1,12 +1,9 @@
 <template>
   <div class="flex flex-col min-h-full">
     <HeaderMenu />
-    <v-container fluid class="min-h-full padding-0">
+    <v-container fluid class="padding-0">
       <v-row no-gutters class="min-h-full">
-        <v-col cols="2" class="bg-slate-200">
-          <div class="p-6">
-          </div>
-        </v-col>
+        <Menu />
         <v-col cols="10" class="p-6">
           <div class="p-6">
             <v-row>
@@ -79,12 +76,13 @@
 import moment from 'moment';
 import { API } from '@/services/api';
 import HeaderMenu from '@/components/HeaderMenu.vue';
+import Menu from '@/components/Menu.vue';
 import { task } from '@/interfaces/task.interface';
 import status from '@/enum/status.enun';
 import priority from '@/enum/priority.enun';
 
 export default {
-  components: { HeaderMenu },
+  components: { HeaderMenu, Menu },
 
   data: () => ({
     priorityItems: priority,
@@ -105,10 +103,25 @@ export default {
         const tast: task = response.data;
         this.form = tast;
       }).catch((e) => {
-        this.$router.push('/tasks');
         console.log(e.message);
       });
     }
+
+    this.$watch(
+      () => this.$route.params,
+      (toParams, previousParams) => {
+        if (!toParams?.id) {
+          this.form = {
+            name: '',
+            priority: '',
+            status: '',
+            startDate: moment(new Date()).format('YYYY-MM-DD'),
+            endDate: moment(new Date()).format('YYYY-MM-DD'),
+            description: '',
+          };
+        }
+      },
+    );
   },
   methods: {
     async submit() {
