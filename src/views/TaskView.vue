@@ -120,7 +120,6 @@ export default {
     },
   }),
   async created() {
-    // console.log(this.$route.params.id);
     if (this.$route.params.id) {
       API.get(`/tasksList/${this.$route.params.id}`).then((response) => {
         const tast:task = response.data;

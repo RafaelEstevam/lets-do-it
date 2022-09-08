@@ -11,17 +11,15 @@
           <v-col cols="10" class="p-6">
             <div class="p-6">
               <v-row>
-                <v-col sm="3" cols="6">
-                  <TaskIndicator />
-                </v-col>
-                <v-col sm="3" cols="6">
-                  <TaskIndicator />
-                </v-col>
-                <v-col sm="3" cols="6">
-                  <TaskIndicator />
-                </v-col>
-                <v-col sm="3" cols="6">
-                  <TaskIndicator />
+                <v-col
+                  v-for="taskWrapper in taskWrappers"
+                  :key="taskWrapper.status"
+                  sm="3" cols="6"
+                >
+                  <TaskWrapper
+                    :status="taskWrapper.status"
+                    :tasks="taskWrapper.tasks"
+                  />
                 </v-col>
               </v-row>
             </div>
@@ -34,13 +32,33 @@
 <script lang="ts">
 import { API } from '@/services/api';
 import HeaderMenu from '@/components/HeaderMenu.vue';
-import TaskIndicator from '@/components/TasksIndicator.vue';
+import TaskWrapper from '@/components/TaskWrapper.vue';
+import status from '@/enum/status.enun';
+import { task } from '@/interfaces/task.interface';
 
 export default {
-  components: { HeaderMenu, TaskIndicator },
+  data() {
+    return {
+      taskWrappers: [
+        { status: status[0] },
+        { status: status[1] },
+        { status: status[2] },
+        { status: status[3] },
+      ],
+    };
+  },
+  components: { HeaderMenu, TaskWrapper },
   created() {
     API.get('/tasksList').then((response) => {
-      console.log(response);
+      const ToDoList = response.data.filter((item:task) => item.status === status[0]);
+      const InProgressList = response.data.filter((item:task) => item.status === status[1]);
+      const BlockedList = response.data.filter((item:task) => item.status === status[2]);
+      const FinishedList = response.data.filter((item:task) => item.status === status[3]);
+
+      this.taskWrappers[0].tasks = ToDoList;
+      this.taskWrappers[1].tasks = InProgressList;
+      this.taskWrappers[2].tasks = BlockedList;
+      this.taskWrappers[3].tasks = FinishedList;
     }).catch((e) => {
       console.log(e.message);
     });
