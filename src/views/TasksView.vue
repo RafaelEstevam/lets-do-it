@@ -1,17 +1,16 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col max-h-screen">
     <HeaderMenu />
-    <v-container fluid class="h-full padding-0">
+    <v-container fluid class="padding-0 h-full overflow-hidden">
       <v-row no-gutters class="h-full">
         <Menu />
         <v-col cols="10" class="p-6">
-          <div class="p-6">
-            <v-row>
-              <v-col v-for="taskWrapper in taskWrappers" :key="taskWrapper.status" sm="3" cols="6">
-                <TaskWrapper :status="taskWrapper.status" :tasks="taskWrapper.tasks" />
-              </v-col>
-            </v-row>
-          </div>
+          <v-row class="max-h-full m-0">
+            <v-col class="taskColumn pt-6 px-6 pb-24 " v-for="taskWrapper in taskWrappers" :key="taskWrapper.status"
+              sm="3" cols="6">
+              <TaskWrapper :status="taskWrapper.status" :tasks="taskWrapper.tasks" />
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -69,24 +68,17 @@ export default {
       }
     }`,
   },
-  // methods: {
-  //   filterTasks() {
-  //     // console.log(JSON.parse(JSON.stringify(this.tasks)));
-  //     // const ToDoList = this.tasks.filter((item: task) => item.taskStatus === status[0]);
-  //     // const InProgressList = this.tasks.filter((item: task) => item.taskStatus === status[1]);
-  //     // const BlockedList = this.tasks.filter((item: task) => item.taskStatus === status[2]);
-  //     // const FinishedList = this.tasks.filter((item: task) => item.taskStatus === status[3]);
-
-  //     // this.taskWrappers = [
-  //     //   { status: status[0], tasks: ToDoList },
-  //     //   { status: status[1], tasks: InProgressList },
-  //     //   { status: status[2], tasks: BlockedList },
-  //     //   { status: status[3], tasks: FinishedList },
-  //     // ];
-  //   },
-  // },
-  // async () {
-  //   await this.filterTasks();
-  // },
 };
 </script>
+
+<style scoped>
+.taskColumn {
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 100vh;
+}
+
+.tasksView {
+  height: 100px;
+}
+</style>

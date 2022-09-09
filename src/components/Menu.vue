@@ -1,6 +1,6 @@
 <template>
-  <v-col cols="2" class="bg-slate-200">
-    <v-list dense>
+  <v-col cols="2" class="bg-gray-800">
+    <v-list dense dark>
       <v-list-item-group color="primary">
         <v-list-item v-for="(item, i) in items" :key="i" v-on:click="goToLink(item.link)">
           <v-list-item-icon>

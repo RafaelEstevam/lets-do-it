@@ -1,10 +1,10 @@
 <template>
-  <v-card>
+  <v-card class="border-0">
     <v-container fluid>
       <v-row>
-        <v-col cols="12" sm="2" class="bg-slate-100">
+        <v-col cols="12" sm="2" class="bg-gray-800">
           <div class="flex justify-center">
-            <p class="transition-swing text-h6 m-0 mb-0">
+            <p class="transition-swing text-h6 m-0 mb-0 text-white">
               Let's do It
             </p>
           </div>
@@ -20,7 +20,7 @@
             </div>
             <div>
               <div class="flex justify-between align-center gap-6">
-                <p class="mb-0">email do usuário</p>
+                <!-- <p class="mb-0">email do usuário</p> -->
                 <v-btn color="primary" @click="logout">
                   Logout
                 </v-btn>

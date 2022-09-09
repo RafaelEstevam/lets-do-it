@@ -1,15 +1,20 @@
 <template>
-  <div>
-    {{ status }}
-    <v-card v-for="task in tasksList" :key="task.id" @click="goToTask(task.id)">
-      {{ task.name }}
-    </v-card>
+  <div class="p-6 rounded-md bg-gray-400">
+    <p class="transition-swing text-h6 m-0 mb-0 text-white text-center">
+      {{ status }}
+    </p>
+    <div v-for="task in tasksList" :key="task.id">
+      <Task :task="task" />
+    </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Task from '@/components/Task.vue';
+
 export default {
   name: 'TaskWrapperVue',
+  components: { Task },
   props: {
     status: String,
     tasks: Array,
@@ -22,10 +27,9 @@ export default {
   async created() {
     this.tasksList = this.tasks;
   },
-  methods: {
-    goToTask(id) {
-      this.$router.push(`/task/edit/${id}`);
-    },
-  },
 };
 </script>
+
+<style scoped>
+.taskWrapperTitle {}
+</style>

@@ -54,13 +54,17 @@
                     </v-row>
 
                     <v-row>
-                      <v-col cols="12" sm="12">
+                      <v-col cols="6" sm="6">
                         <v-btn block color="primary" x-large @click="submit">
                           Salvar
                         </v-btn>
                       </v-col>
+                      <v-col v-if="$route.params.id" cols="6" sm="6">
+                        <v-btn block color="primary" outlined x-large @click="deleteTask">
+                          Apagar tarefa
+                        </v-btn>
+                      </v-col>
                     </v-row>
-
                   </div>
                 </v-card>
               </v-col>
@@ -128,6 +132,13 @@ export default {
       const { ...data } = this.form;
       const newTask: task = data;
       API.post(`/taskItem/edit/${this.$route.params.id || 'new'}`, newTask).then(() => {
+        this.$router.push('/tasks');
+      }).catch((e) => {
+        console.log(e.message);
+      });
+    },
+    async deleteTask() {
+      API.delete(`/taskItem/edit/${this.$route.params.id}`).then(() => {
         this.$router.push('/tasks');
       }).catch((e) => {
         console.log(e.message);
